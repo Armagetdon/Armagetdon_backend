@@ -1,6 +1,6 @@
 package com.armagetdon.server.controller;
 
-import com.armagetdon.server.dto.response.YoutubeDetail;
+import com.armagetdon.server.dto.YoutubeResponseDTO;
 import com.armagetdon.server.service.YoutubeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class YoutubeController {
     private final YoutubeService youtubeService;
 
     @GetMapping("/youtube")
-    private YoutubeDetail getYoutubeDetails(@RequestParam String youtubeUrl) {
+    private YoutubeResponseDTO getYoutubeDetails(@RequestParam String youtubeUrl) {
         try {
             return youtubeService.getYoutubeDetails(youtubeUrl);
         } catch (IOException | GeneralSecurityException e) {

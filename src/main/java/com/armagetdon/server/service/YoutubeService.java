@@ -1,6 +1,6 @@
 package com.armagetdon.server.service;
 
-import com.armagetdon.server.dto.response.YoutubeDetail;
+import com.armagetdon.server.dto.YoutubeResponseDTO;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
@@ -35,7 +35,7 @@ public class YoutubeService {
                 .build();
     }
 
-    public YoutubeDetail getYoutubeDetails(String youtubeUrl) throws GeneralSecurityException, IOException {
+    public YoutubeResponseDTO getYoutubeDetails(String youtubeUrl) throws GeneralSecurityException, IOException {
         String videoId = extractVideoId(youtubeUrl);
 
         YouTube.Videos.List request = youtube.videos().list("snippet");
@@ -50,7 +50,7 @@ public class YoutubeService {
         Video video = videoList.get(0);
         String title = video.getSnippet().getTitle();
         String thumbnailUrl = video.getSnippet().getThumbnails().getDefault().getUrl();
-        return new YoutubeDetail(title, thumbnailUrl);
+        return new YoutubeResponseDTO(title, thumbnailUrl);
     }
 
     private String extractVideoId(String videoUrl) {

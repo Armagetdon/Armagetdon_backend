@@ -1,11 +1,11 @@
-package com.armagetdon.server.dto.response;
+package com.armagetdon.server.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class YoutubeDetail {
+public class YoutubeResponseDTO {
     private String title;
     private String thumbnailUrl;
 }
