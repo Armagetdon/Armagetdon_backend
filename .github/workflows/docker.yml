@@ -19,7 +19,7 @@ jobs:
 
     # application.yml file 생성
     - name: make application.yml
-      run: 
+      run: |
          cd ./src/main
          cd ./resources
          
