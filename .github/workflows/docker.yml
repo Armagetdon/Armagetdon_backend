@@ -69,8 +69,8 @@ jobs:
           username: ubuntu
           key: ${{ secrets.KEY }}
           script: |
-            sudo docker stop $(docker ps -a -q --filter "name=armagetdon-temp") || true
-            sudo docker rm $(docker ps -a -q --filter "name=armagetdon-temp") || true
+            sudo docker stop $(docker ps -a -q --filter "name=armagetdon-app") || true
+            sudo docker rm $(docker ps -a -q --filter "name=armagetdon-app") || true
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
-            sudo docker run -d --name armagetdon-temp -p 8000:8000 -e TZ=Asia/Seoul ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
+            sudo docker run -d --name armagetdon-app -p 8080:8080 -e TZ=Asia/Seoul ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
 
