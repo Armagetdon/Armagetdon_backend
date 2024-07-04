@@ -26,8 +26,10 @@ public class PostCommandServiceImpl implements PostCommandService {
     @Override
     @Transactional
     public Post createPost(PostRequestDTO.createPostDTO request) {
-        Post newPost = PostConverter.toPost(request);
-        return postRepository.save(newPost);
+
+        return null;
+        //Post newPost = PostConverter.toPost(request);
+        //return postRepository.save(newPost);
     }
 
     @Override

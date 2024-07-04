@@ -1,5 +1,7 @@
 package com.armagetdon.server.dto;
 
+import com.armagetdon.server.domain.Member;
+import com.armagetdon.server.domain.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,5 +18,7 @@ public class RecommendResponseDTO {
     public static class recommendJoinDTO{
 
         LocalDateTime createdAt;
+
+
     }
 }

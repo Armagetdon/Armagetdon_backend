@@ -22,7 +22,7 @@ public class PostController {
 
     private final PostCommandService postCommandService;
 
-    // 게시글 조회 API
+    // 게시글 생성 API
     @PostMapping("/")
     public ApiResponse<PostResponseDTO.createResultDTO> create(@RequestBody @Valid PostRequestDTO.createPostDTO request){
         Post post = postCommandService.createPost(request);
@@ -34,6 +34,6 @@ public class PostController {
     public ApiResponse<?> deletePost(@PathVariable(name="id") Long post_id){
         postCommandService.deletePost(post_id);
         return null;
-
     }
+
 }
