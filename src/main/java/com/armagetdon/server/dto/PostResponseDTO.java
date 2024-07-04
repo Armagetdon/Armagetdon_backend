@@ -15,8 +15,13 @@ public class PostResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class createResultDTO{
+        Long postId;
         Long memberId;
+        String postImageUrl;
         LocalDateTime createdAt;
+        String title;
+        String thumbnail_url;
+        String youtube_url;
     }
 
 }

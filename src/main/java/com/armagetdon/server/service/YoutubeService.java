@@ -1,5 +1,7 @@
 package com.armagetdon.server.service;
 
+import com.armagetdon.server.apiPayload.code.status.ErrorStatus;
+import com.armagetdon.server.apiPayload.exception.GeneralException;
 import com.armagetdon.server.dto.response.YoutubeDetail;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -44,7 +46,7 @@ public class YoutubeService {
 
         // 잘못된 비디오 ID가 입력되었을 때
         if (videoList.isEmpty()) {
-            //TODO: 예외처리
+            throw new GeneralException(ErrorStatus._INVALID_VIDEO);
         }
 
         Video video = videoList.get(0);

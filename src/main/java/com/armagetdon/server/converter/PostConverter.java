@@ -31,7 +31,12 @@ public class PostConverter {
     public static PostResponseDTO.createResultDTO toCreatePostDTO(Post post){
         return PostResponseDTO.createResultDTO.builder()
                 .createdAt(post.getCreatedAt())
+                .thumbnail_url(post.getThumbnail_url())
+                .postImageUrl(post.getPost_image_id().getS3url())
+                .title(post.getTitle())
+                .postId(post.getPost_id())
                 .memberId(post.getPost_id())
+                .youtube_url(post.getYoutube_url())
                 .build();
     }
 }
