@@ -30,6 +30,7 @@ public class PostCommandServiceImpl implements PostCommandService {
 
     public PostImage giveImage(Long post_image_id){
         PostImage image = postImageRepository.findById(post_image_id).orElseThrow(() -> new PostImageHandler(ErrorStatus.IMAGE_NOT_FOUND));
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+image);
         return image;
     }
 }
