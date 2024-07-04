@@ -50,6 +50,7 @@ public class PostController {
     }
 
     // 게시글 조회 API
+    @Operation(summary = "게시글 전체 조회 API", description = "게시글을 조회하는 API")
     @GetMapping("/{postId}")
     public ApiResponse<List<PostResponseDTO.listResultDTO>> inquiryList() {
         return ApiResponse.onSuccess(postCommandService.inquiryList());

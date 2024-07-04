@@ -62,6 +62,6 @@ public class NicknameService {
     public String generateNickname() {
         String adjective = adjectives.get(random.nextInt(adjectives.size()));
         String noun = nouns.get(random.nextInt(nouns.size()));
-        return adjective + noun;
+        return adjective + " " + noun;
     }
 }
