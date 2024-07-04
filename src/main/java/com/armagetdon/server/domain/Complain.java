@@ -19,7 +19,6 @@ public class Complain extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Complain_type complain_type;
 
-    //
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
