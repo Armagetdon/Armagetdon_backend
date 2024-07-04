@@ -1,5 +1,7 @@
 package com.armagetdon.server.service;
 
+import com.armagetdon.server.apiPayload.code.status.ErrorStatus;
+import com.armagetdon.server.apiPayload.exception.GeneralException;
 import com.armagetdon.server.domain.PostImage;
 import com.armagetdon.server.repository.ImageRepository;
 import com.armagetdon.server.util.S3Client;
@@ -19,6 +21,9 @@ public class ImageService {
 
     @Transactional
     public String uploadImage(MultipartFile file) throws IOException {
+        if(file==null){
+            throw new GeneralException(ErrorStatus._BAD_REQUEST);
+        }
         String imageUrl = s3Client.upload(file);
 
         PostImage postImage = PostImage.builder()
@@ -31,9 +36,9 @@ public class ImageService {
 
     @Transactional
     public void deleteImage(Long image_id) throws IOException {
-        Optional<PostImage> optionalImage = imageRepository.findById(image_id);
-        PostImage image = optionalImage.orElseThrow(() -> new IOException("Image not found for id: " + image_id));
-
+        Optional<PostImage> optionalImage = Optional.ofNullable(imageRepository.findById(image_id)
+                .orElseThrow(() -> new GeneralException(ErrorStatus.IMAGE_NOT_FOUND)));
+        PostImage image = optionalImage.get();
         s3Client.delete(image.getS3url());
         imageRepository.delete(image);
     }
