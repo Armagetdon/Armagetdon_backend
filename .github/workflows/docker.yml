@@ -19,10 +19,10 @@ jobs:
 
     # application.yml file 생성
     - name: make application.yml
-      run: 
+      run: |
          cd ./src/main
          mkdir resources
-         cd resources  
+         cd ./resources
          
          touch ./application.yml
          echo "${{ secrets.YML }}" >> ./application.yml
@@ -63,7 +63,7 @@ jobs:
         script: |
           sudo docker stop $(sudo docker ps -a -q --filter "name=armagetdon-dev") || true
           sudo docker rm $(sudo docker ps -a -q --filter "name=armagetdon-dev") || true
-          sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest || true
-          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest
-          sudo docker run -d —name armagetdon-dev -p 8080:8080 -e TZ=Asia/Seoul ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest
+          sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest || true
+          sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
+          sudo docker run -d —-name armagetdon-dev -p 8080:8080 -e TZ=Asia/Seoul ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
  
