@@ -19,4 +19,5 @@ public interface PostCommandService {
 
     List<PostResponseDTO.listResultDTO> inquiryList();
 
+    PostResponseDTO.detailResultDTO inquiryDetail(Long id);
 }

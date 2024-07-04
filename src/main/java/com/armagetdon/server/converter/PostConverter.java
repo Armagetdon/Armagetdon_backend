@@ -35,7 +35,7 @@ public class PostConverter {
                 .postImageUrl(post.getPost_image_id().getS3url())
                 .title(post.getTitle())
                 .postId(post.getPost_id())
-                .memberId(post.getPost_id())
+                .memberId(post.getMember().getMember_id())
                 .youtube_url(post.getYoutube_url())
                 .build();
     }
@@ -44,7 +44,7 @@ public class PostConverter {
         return PostResponseDTO.detailResultDTO.builder()
                 .postId(post.getPost_id())
                 .youtubeTitle(post.getYoutube_url())
-                .youtube_url(post.getYoutube_url())
+                .memberNickname(post.getMember().getNickname())
                 .isRecommend(isRecommend)
                 .recommendCount(count)
                 .img_url(post.getPost_image_id().getS3url())

@@ -18,7 +18,7 @@ public class Recommend extends BaseEntity {
 
     @Column(nullable = false)
     @ColumnDefault("true")
-    private boolean is_active;
+    private boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
