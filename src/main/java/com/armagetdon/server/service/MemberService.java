@@ -102,4 +102,9 @@ public class MemberService {
                 .orElseThrow(() -> new GeneralException(ErrorStatus._NOT_EXIST_MEMBER));
         return MemberResponseDto.RankDto.from();
     }
+
+    public Member getMember(Long memberId){
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new GeneralException(ErrorStatus._NOT_EXIST_MEMBER));
+    }
 }

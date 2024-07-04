@@ -59,8 +59,8 @@ public class PostController {
     }
 
     // 인기 게시글 조회 API
-    @GetMapping("/top")
-    public ApiResponse<List<PostResponseDTO.popularResultDTO>> getTopList() {
-        return ApiResponse.onSuccess(postQueryService.getTopList());
+    @GetMapping("/popular")
+    public ApiResponse<List<PostResponseDTO.popularResultDTO>> getPopularList() {
+        return ApiResponse.onSuccess(postQueryService.getPopularList());
     }
 }

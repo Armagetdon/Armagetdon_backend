@@ -43,7 +43,7 @@ public class Post extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_image_id")
-    private PostImage post_image_id;
+    private PostImage post_image;
 
     @ColumnDefault("0")
     private int post_recommend_count;
