@@ -15,7 +15,7 @@ public class PostRequestDTO {
         @NotBlank
         private String youtube_url;
 
-        @NotBlank
+        @Min(1)
         private Long member_id;
 
         @Min(1)

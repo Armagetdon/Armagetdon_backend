@@ -34,7 +34,7 @@ public class PostCommandServiceImpl implements PostCommandService {
     @Transactional
     public Post createPost(PostRequestDTO.createPostDTO request) throws GeneralSecurityException, IOException {
         Optional<PostImage> OptionalImage = postImageRepository.findById(request.getPost_image_id());
-        Optional<Member> OptionalMember = memberRepository.findById(3L);
+        Optional<Member> OptionalMember = memberRepository.findById(request.getMember_id());
         YoutubeDetail youtubeDetail = youtubeService.getYoutubeDetails(request.getYoutube_url());
 
         Post newPost = Post.builder()
