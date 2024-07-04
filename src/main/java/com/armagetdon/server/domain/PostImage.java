@@ -17,4 +17,9 @@ public class PostImage extends BaseEntity {
 
     @Column(nullable = false)
     private String s3url;
+
+    @Builder
+    public PostImage(String s3url){
+        this.s3url = s3url;
+    }
 }
