@@ -21,8 +21,6 @@ public class Post extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long post_id;
 
-    @Column(nullable = false)
-    private String img_url;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(500)")
     private String youtube_url;
