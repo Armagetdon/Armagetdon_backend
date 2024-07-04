@@ -1,6 +1,7 @@
 package com.armagetdon.server.service;
 
 import com.armagetdon.server.domain.Member;
+import com.armagetdon.server.domain.enums.Level;
 import com.armagetdon.server.dto.response.MemberRes;
 import com.armagetdon.server.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -49,28 +50,11 @@ public class MemberService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus._NOT_EXIST_MEMBER));
 
-        int altitude = member.getAltitude();
-        String level;
-        int leftAltitude;
+        int altitude = member.getAltitude() * 1000;
+        Level level = Level.getLevelByAltitude(altitude);
+        int leftAltitude = level.getLeftAltitude(altitude);
 
-        if (altitude < 10){
-            level = "대류권";
-            leftAltitude = 10 - altitude;
-        } else if (altitude < 50){
-            level = "성층권";
-            leftAltitude = 50 - altitude;
-        } else if (altitude < 80){
-            level = "중간권";
-            leftAltitude = 80 - altitude;
-        } else if (altitude < 100){
-            level = "열권";
-            leftAltitude = 100 - altitude;
-        } else {
-            level = "광야";
-            leftAltitude = 0;
-        }
-
-        return MemberResponseDto.MyPageDto.from(member.getNickname(), member.getReward(), level, leftAltitude);
+        return MemberResponseDto.MyPageDto.from(member.getNickname(), member.getReward(), level.getName(), leftAltitude);
     }
 
     public MemberResponseDto.RewardDto getReward(Long memberId){
