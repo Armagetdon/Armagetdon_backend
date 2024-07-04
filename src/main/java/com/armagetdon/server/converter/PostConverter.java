@@ -20,10 +20,8 @@ public class PostConverter {
     public static Post toPost(PostRequestDTO.createPostDTO request){
         //PostImage image = postCommandService.giveImage(request.getPost_image_id();
 
-        System.out.println(request.getPost_image_id());
-
-        Optional<PostImage> optionalimage = ImageRepository.findById(request.getPost_image_id());
-        PostImage image = optionalimage.orElseThrow(()-> new PostHandler(ErrorStatus.IMAGE_NOT_FOUND));
+        Optional<PostImage> optionalImage = ImageRepository.findById(request.getPost_image_id());
+        PostImage image = optionalImage.orElseThrow(()-> new PostHandler(ErrorStatus.IMAGE_NOT_FOUND));
         return Post.builder()
                 .post_image_id(image)
                 .youtube_url(request.getYoutube_url())
