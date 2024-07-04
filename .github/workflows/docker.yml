@@ -59,7 +59,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
-          username: ec2-user
+          username: ubuntu
           key: ${{ secrets.KEY }}
           script: |
             sudo docker stop $(docker ps -a -q --filter "name=armagetdon-app") || true
