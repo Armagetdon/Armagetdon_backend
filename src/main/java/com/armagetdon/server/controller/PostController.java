@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,4 +48,11 @@ public class PostController {
         return null;
 
     }
+
+    // 게시글 조회 API
+    @GetMapping("/{postId}")
+    public ApiResponse<List<PostResponseDTO.listResultDTO>> inquiryList() {
+        return ApiResponse.onSuccess(postCommandService.inquiryList());
+    }
+
 }

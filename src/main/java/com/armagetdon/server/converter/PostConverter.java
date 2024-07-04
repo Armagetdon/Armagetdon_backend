@@ -39,4 +39,30 @@ public class PostConverter {
                 .youtube_url(post.getYoutube_url())
                 .build();
     }
+
+    public static PostResponseDTO.detailResultDTO toDetailPostDTO(Post post, boolean isRecommend, boolean isMine, int count){
+        return PostResponseDTO.detailResultDTO.builder()
+                .postId(post.getPost_id())
+                .youtubeTitle(post.getYoutube_url())
+                .youtube_url(post.getYoutube_url())
+                .isRecommend(isRecommend)
+                .recommendCount(count)
+                .img_url(post.getPost_image_id().getS3url())
+                .youtube_url(post.getYoutube_url())
+                .isMine(isMine)
+                .build();
+    }
+
+    public static PostResponseDTO.listResultDTO toListPostDTO(Post post, boolean isRecommend, String level, int count){
+        return PostResponseDTO.listResultDTO.builder()
+                .postId(post.getPost_id())
+                .youtubeTitle(post.getTitle())
+                .memberNickname(post.getMember().getNickname())
+                .level(level)
+                .isRecommend(isRecommend)
+                .recommendCount(count)
+                .thumbnailUrl(post.getThumbnail_url())
+                .build();
+    }
+
 }

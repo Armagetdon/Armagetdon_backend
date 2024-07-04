@@ -8,7 +8,9 @@ import com.armagetdon.server.converter.PostConverter;
 import com.armagetdon.server.domain.Member;
 import com.armagetdon.server.domain.Post;
 import com.armagetdon.server.domain.PostImage;
+import com.armagetdon.server.domain.enums.Level;
 import com.armagetdon.server.dto.PostRequestDTO;
+import com.armagetdon.server.dto.PostResponseDTO;
 import com.armagetdon.server.dto.response.YoutubeDetail;
 import com.armagetdon.server.repository.MemberRepository;
 import com.armagetdon.server.repository.PostImageRepository;
@@ -20,7 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -61,6 +65,20 @@ public class PostCommandServiceImpl implements PostCommandService {
     public void deletePost(Long post_id) {
         Post deletedPost = postRepository.findById(post_id).orElseThrow(() -> new PostHandler(ErrorStatus.POST_NOT_FOUND));
         postRepository.delete(deletedPost);
+    }
+
+    @Override
+    public List<PostResponseDTO.listResultDTO> inquiryList() {
+        Random random = new Random();
+;
+        List<Post> postList = postRepository.findAll();
+        return postList.stream()
+                .map(post -> PostConverter.toListPostDTO(
+                        post,
+                        true,
+                        Level.getLevelByAltitude(post.getMember().getAltitude()).getName(),
+                        random.nextInt(10) + 1))
+                .toList();
     }
 
 }
