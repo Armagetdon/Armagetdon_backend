@@ -24,10 +24,18 @@ jobs:
       - name: make application.yml
         run: |
            cd ./src/main
+           mkdir resources
            cd ./resources
            
            touch ./application.yml
            echo "${{ secrets.YML }}" >> ./application.yml
+        shell: bash
+
+     # resources 디렉토리 내용 출력 (디버깅용)
+      - name: List resources directory
+        run: |
+          ls -l ./src/main/resources
+          if [ -f ./src/main/resources/adjective.txt ]; then echo "adjective.txt exists"; else echo "adjective.txt does not exist"; fi
         shell: bash
 
       # 권한 부여
@@ -61,8 +69,8 @@ jobs:
           username: ubuntu
           key: ${{ secrets.KEY }}
           script: |
-            sudo docker stop $(docker ps -a -q --filter "name=armagetdon-temp") || true
-            sudo docker rm $(docker ps -a -q --filter "name=armagetdon-temp") || true
+            sudo docker stop $(docker ps -a -q --filter "name=armagetdon-app") || true
+            sudo docker rm $(docker ps -a -q --filter "name=armagetdon-app") || true
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
-            sudo docker run -d --name armagetdon-temp -p 8000:8000 -e TZ=Asia/Seoul ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
+            sudo docker run -d --name armagetdon-app -p 8080:8080 -e TZ=Asia/Seoul ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
 

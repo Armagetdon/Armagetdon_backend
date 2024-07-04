@@ -1,11 +1,19 @@
 package com.armagetdon.server.service;
 
 import com.armagetdon.server.domain.Member;
+import com.armagetdon.server.domain.enums.Level;
 import com.armagetdon.server.dto.response.MemberRes;
 import com.armagetdon.server.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import com.armagetdon.server.apiPayload.code.status.ErrorStatus;
 import com.armagetdon.server.apiPayload.exception.GeneralException;
 import com.armagetdon.server.dto.MemberRequestDto;
@@ -39,38 +47,33 @@ public class MemberService {
     }
 
     @Transactional
-    //tmp create Member
-    public void tmp(){
-        Member member = new Member("nickName");
-        memberRepository.save(member);
+    //tmp increase reward
+    public void tmp(MemberRequestDto.PatchRewardDto patchRewardDto){
+        Member member = memberRepository.findById(patchRewardDto.getMemberId())
+                .orElseThrow(() -> new GeneralException(ErrorStatus._NOT_EXIST_MEMBER));
+        long reward = patchRewardDto.getReward();
+        member.addReward(reward);
     }
+
+    @Transactional
+    // tmp increase altitude
+    public void tmp_altitude(MemberRequestDto.PatchRewardDto patchRewardDto){
+        Member member = memberRepository.findById(patchRewardDto.getMemberId())
+                .orElseThrow(() -> new GeneralException(ErrorStatus._NOT_EXIST_MEMBER));
+        int altitude = Math.toIntExact(patchRewardDto.getReward());
+        member.addAltitude(altitude);
+    }
+
 
     public MemberResponseDto.MyPageDto getMyPage(Long memberId){
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus._NOT_EXIST_MEMBER));
 
         int altitude = member.getAltitude();
-        String level;
-        int leftAltitude;
+        Level level = Level.getLevelByAltitude(altitude);
+        int leftAltitude = level.getLeftAltitude(altitude)/1000;
 
-        if (altitude < 10){
-            level = "대류권";
-            leftAltitude = 10 - altitude;
-        } else if (altitude < 50){
-            level = "성층권";
-            leftAltitude = 50 - altitude;
-        } else if (altitude < 80){
-            level = "중간권";
-            leftAltitude = 80 - altitude;
-        } else if (altitude < 100){
-            level = "열권";
-            leftAltitude = 100 - altitude;
-        } else {
-            level = "광야";
-            leftAltitude = 0;
-        }
-
-        return MemberResponseDto.MyPageDto.from(member.getNickname(), member.getReward(), level, leftAltitude);
+        return MemberResponseDto.MyPageDto.from(member.getNickname(), member.getReward(), level.getName(), leftAltitude);
     }
 
     public MemberResponseDto.RewardDto getReward(Long memberId){
@@ -100,6 +103,31 @@ public class MemberService {
     public MemberResponseDto.RankDto getRank(Long memberId){
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus._NOT_EXIST_MEMBER));
-        return MemberResponseDto.RankDto.from();
+        int memberRank = -1;
+
+        Pageable pageable = PageRequest.of(0, 800, Sort.by("altitude").descending());
+        Page<Member> allMemberRankPage = memberRepository.findAll(pageable);
+        List<Member> allMemberRankList = allMemberRankPage.getContent();
+
+        // member rank list
+        List<Member> memberRankList = new ArrayList<>();
+        for (int i = 0; i < allMemberRankList.size() && i < 100; i++) {
+            Member m = allMemberRankList.get(i);
+            memberRankList.add(m);
+        }
+
+        // find member's rank
+        for (int i = 0; i < allMemberRankList.size(); i++) {
+            Member m = allMemberRankList.get(i);
+            if (m.getMember_id().equals(memberId)){
+                memberRank = i + 1;
+                break;
+            }
+        }
+
+        if (memberRank == -1)
+            throw new GeneralException(ErrorStatus._NOT_EXIST_MEMBER);
+
+        return MemberResponseDto.RankDto.from(memberRankList, member, memberRank);
     }
 }

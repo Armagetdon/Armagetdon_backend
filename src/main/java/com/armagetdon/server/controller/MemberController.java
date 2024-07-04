@@ -22,10 +22,19 @@ public class MemberController {
         return memberService.join();
     }
 
-    @Operation(summary = "테스트 API", description = "테스트용입니다.")
-    @PostMapping("/tmp")
-    public ApiResponse tmp(){
-        memberService.tmp();
+    @Operation(summary = "리워드 추가 API", description = "리워드 증가시키는 API")
+    @PatchMapping("/tmp/reward")
+    public ApiResponse tmp(@RequestBody MemberRequestDto.PatchRewardDto patchRewardDto){
+        // tmp increase reward
+        memberService.tmp(patchRewardDto);
+        return ApiResponse.onSuccess();
+    }
+
+    @Operation(summary = "고도 증가 API", description = "고도 증가시키는 API")
+    @PatchMapping("/tmp/altitude")
+    public ApiResponse tmp_altitude(@RequestBody MemberRequestDto.PatchRewardDto patchRewardDto){
+        // tmp increase altitude
+        memberService.tmp_altitude(patchRewardDto);
         return ApiResponse.onSuccess();
     }
 
@@ -41,7 +50,7 @@ public class MemberController {
         return ApiResponse.onSuccess(memberService.getReward(memberId));
     }
 
-    @Operation(summary = "리워드 얻기 API", description = "리워드 값 변경 시 실행하는 API")
+    @Operation(summary = "리워드 감소 API", description = "리워드 값 감소 시 실행하는 API")
     @PatchMapping("/reward")
     public ApiResponse patchReward(@RequestBody MemberRequestDto.PatchRewardDto patchRewardDto){
         memberService.patchReward(patchRewardDto);
