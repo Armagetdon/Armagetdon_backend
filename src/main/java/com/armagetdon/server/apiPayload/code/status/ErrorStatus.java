@@ -17,6 +17,7 @@ public enum ErrorStatus implements BaseErrorCode {
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
     IMAGE_NOT_FOUND(HttpStatus.NOT_FOUND, "IMAGE400", "이미지가 없습니다."),
     POST_NOT_FOUND(HttpStatus.NOT_FOUND, "POST400", "게시물이 없습니다."),
+    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "MEMBER400", "멤버가 없습니다."),
     /**
      * 400
      */

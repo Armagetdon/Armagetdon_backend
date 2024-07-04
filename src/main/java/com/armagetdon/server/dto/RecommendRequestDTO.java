@@ -9,6 +9,6 @@ public class RecommendRequestDTO {
     public static class recommendDTO{
         @Min(1)
         Long post_id;
-        //Long member_id;
+        Long member_id;
     }
 }
