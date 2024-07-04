@@ -1,4 +1,4 @@
-package com.armagetdon.server.global.util.s3;
+package com.armagetdon.server.util;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -34,7 +34,7 @@ public class S3Client {
 
         //AmazonS3 객체의 putObject 메서드를 사용하여 S3 버킷에 파일을 업로드
         amazonS3.putObject(bucket, originalFilename, multipartFile.getInputStream(), metadata); //버킷 이름, 파일 이름, 파일의 입력 스트림, 메타데이터 전달
-        return amazonS3.getUrl(bucket, originalFilename).toString(); //업로드된 파일의 URL을 생성하고 반환
+        return baseUrl+originalFilename; //업로드된 파일의 URL을 생성하고 반환
     }
 
     public void delete(String imageUrl) {

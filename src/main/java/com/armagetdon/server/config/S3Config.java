@@ -1,4 +1,4 @@
-package com.armagetdon.server.global.config;
+package com.armagetdon.server.config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
