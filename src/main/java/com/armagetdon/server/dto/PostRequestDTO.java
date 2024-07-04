@@ -15,6 +15,9 @@ public class PostRequestDTO {
         @NotBlank
         private String youtube_url;
 
+        @NotBlank
+        private Long member_id;
+
         @Min(1)
         private Long post_image_id;
     }
