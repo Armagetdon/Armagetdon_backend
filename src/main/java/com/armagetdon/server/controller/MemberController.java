@@ -4,15 +4,19 @@ import com.armagetdon.server.apiPayload.ApiResponse;
 import com.armagetdon.server.dto.MemberRequestDto;
 import com.armagetdon.server.dto.response.MemberRes;
 import com.armagetdon.server.service.MemberService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name="Member", description = "member 관련 API")
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
 
+    @Operation(summary = "회원 가입 및 닉네임 랜덤 생성 기능 API", description = "회원 가입 시 실행하는 API")
     @PostMapping("")
     public MemberRes joinMember() {
         return memberService.join();
