@@ -42,6 +42,14 @@ public class Member extends BaseEntity {
         this.reward -= reward;
     }
 
+    public void addReward(long reward){
+        this.reward += reward;
+    }
+
+    public void addAltitude(int altitude){
+        this.altitude += altitude;
+    }
+
     @Builder
     public Member(String nickname){
         this.nickname = nickname;

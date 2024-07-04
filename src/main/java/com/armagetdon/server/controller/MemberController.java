@@ -22,9 +22,17 @@ public class MemberController {
         return memberService.join();
     }
 
-    @PostMapping("/tmp")
-    public ApiResponse tmp(){
-        memberService.tmp();
+    @PatchMapping("/tmp/reward")
+    public ApiResponse tmp(@RequestBody MemberRequestDto.PatchRewardDto patchRewardDto){
+        // tmp increase reward
+        memberService.tmp(patchRewardDto);
+        return ApiResponse.onSuccess();
+    }
+
+    @PatchMapping("/tmp/altitude")
+    public ApiResponse tmp_altitude(@RequestBody MemberRequestDto.PatchRewardDto patchRewardDto){
+        // tmp increase altitude
+        memberService.tmp_altitude(patchRewardDto);
         return ApiResponse.onSuccess();
     }
 
