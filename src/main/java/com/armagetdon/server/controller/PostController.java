@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +26,14 @@ public class PostController {
     // 게시글 조회 API
     @PostMapping("/")
     public ApiResponse<PostResponseDTO.createResultDTO> create(@RequestBody @Valid PostRequestDTO.createPostDTO request){
-        Post post = postCommandService.createPost(request);
+        Post post = null;
+        try {
+            post = postCommandService.createPost(request);
+        } catch (GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return ApiResponse.onSuccess(PostConverter.toCreatePostDTO(post));
     }
 
