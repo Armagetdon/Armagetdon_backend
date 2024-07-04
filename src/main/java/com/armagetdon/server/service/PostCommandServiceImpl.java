@@ -2,6 +2,7 @@ package com.armagetdon.server.service;
 
 
 import com.armagetdon.server.apiPayload.code.status.ErrorStatus;
+import com.armagetdon.server.apiPayload.exception.GeneralException;
 import com.armagetdon.server.apiPayload.exception.handler.PostHandler;
 import com.armagetdon.server.converter.PostConverter;
 import com.armagetdon.server.domain.Member;
@@ -33,17 +34,25 @@ public class PostCommandServiceImpl implements PostCommandService {
     @Override
     @Transactional
     public Post createPost(PostRequestDTO.createPostDTO request) throws GeneralSecurityException, IOException {
-        Optional<PostImage> OptionalImage = postImageRepository.findById(request.getPost_image_id());
-        Optional<Member> OptionalMember = memberRepository.findById(request.getMember_id());
+        PostImage postImage = postImageRepository.findById(request.getPost_image_id())
+                .orElseThrow(() -> new GeneralException(ErrorStatus._BAD_REQUEST));
+        Member member = memberRepository.findById(request.getMember_id())
+                .orElseThrow(() -> new GeneralException(ErrorStatus._BAD_REQUEST));
         YoutubeDetail youtubeDetail = youtubeService.getYoutubeDetails(request.getYoutube_url());
 
         Post newPost = Post.builder()
-                .post_image_id(OptionalImage.get())
+                .post_image_id(postImage)
                 .youtube_url(request.getYoutube_url())
                 .thumbnail_url(youtubeDetail.getThumbnailUrl())
-                .member(OptionalMember.get())
+                .member(member)
                 .title(youtubeDetail.getTitle())
                 .build();
+
+        // reward 지급
+        member.addReward(10);
+        // 고도 상승
+        member.addAltitude(1000);
+
         return postRepository.save(newPost);
     }
 
