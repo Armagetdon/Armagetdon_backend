@@ -1,7 +1,7 @@
 package com.armagetdon.server.domain;
 
 import com.armagetdon.server.domain.common.BaseEntity;
-import com.armagetdon.server.domain.enums.complain_type;
+import com.armagetdon.server.domain.enums.Complain_type;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +17,7 @@ public class Complain extends BaseEntity {
     private Long complain_id;
 
     @Enumerated(EnumType.STRING)
-    private complain_type complain_type;
+    private Complain_type complain_type;
 
     //
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,4 +1,5 @@
 package com.armagetdon.server.domain.enums;
 
-public enum complain_type {
+public enum Complain_type {
+    JUST
 }
