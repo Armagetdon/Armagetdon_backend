@@ -22,28 +22,33 @@ public class MemberController {
         return memberService.join();
     }
 
+    @Operation(summary = "테스트 API", description = "테스트용입니다.")
     @PostMapping("/tmp")
     public ApiResponse tmp(){
         memberService.tmp();
         return ApiResponse.onSuccess();
     }
 
+    @Operation(summary = "마이페이지 조회 API", description = "마이페이지 조회시 실행하는 API")
     @GetMapping("/mypage/{memberId}")
     public ApiResponse getMyPage(@PathVariable(name = "memberId") Long memberId){
         return ApiResponse.onSuccess(memberService.getMyPage(memberId));
     }
 
+    @Operation(summary = "리워드 조회 API", description = "리워드 조회 시 실행하는 API")
     @GetMapping("/reward/{memberId}")
     public ApiResponse getReward(@PathVariable(name = "memberId") Long memberId){
         return ApiResponse.onSuccess(memberService.getReward(memberId));
     }
 
+    @Operation(summary = "리워드 얻기 API", description = "리워드 값 변경 시 실행하는 API")
     @PatchMapping("/reward")
     public ApiResponse patchReward(@RequestBody MemberRequestDto.PatchRewardDto patchRewardDto){
         memberService.patchReward(patchRewardDto);
         return ApiResponse.onSuccess();
     }
 
+    @Operation(summary = "랭킹 조회 API", description = "랭킹 조회하는 API")
     @GetMapping("/rank/{memberId}")
     public ApiResponse getRank(@PathVariable(name = "memberId") Long memberId){
         return ApiResponse.onSuccess(memberService.getRank(memberId));
