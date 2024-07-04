@@ -8,6 +8,7 @@ import com.armagetdon.server.converter.PostConverter;
 import com.armagetdon.server.domain.Member;
 import com.armagetdon.server.domain.Post;
 import com.armagetdon.server.domain.PostImage;
+import com.armagetdon.server.domain.Recommend;
 import com.armagetdon.server.domain.enums.Level;
 import com.armagetdon.server.dto.PostRequestDTO;
 import com.armagetdon.server.dto.PostResponseDTO;
@@ -16,6 +17,7 @@ import com.armagetdon.server.repository.MemberRepository;
 import com.armagetdon.server.repository.PostImageRepository;
 import com.armagetdon.server.repository.PostRepository;
 
+import com.armagetdon.server.repository.RecommendRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +36,7 @@ public class PostCommandServiceImpl implements PostCommandService {
     private final PostImageRepository postImageRepository;
     private final MemberRepository memberRepository;
     private final YoutubeService youtubeService;
+    private final RecommendRepository recommendRepository;
 
     @Override
     @Transactional
@@ -75,10 +78,24 @@ public class PostCommandServiceImpl implements PostCommandService {
         return postList.stream()
                 .map(post -> PostConverter.toListPostDTO(
                         post,
-                        true,
+                        isRecommend(post, post.getMember()),
                         Level.getLevelByAltitude(post.getMember().getAltitude()).getName(),
-                        random.nextInt(10) + 1))
+                        recommendRepository.countByPostAndIsActiveTrue(post).intValue()))
                 .toList();
     }
 
+    @Override
+    public PostResponseDTO.detailResultDTO inquiryDetail(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(() -> new GeneralException(ErrorStatus.POST_NOT_FOUND));
+        return PostConverter.toDetailPostDTO(
+                post,
+                isRecommend(post, post.getMember()),
+                post.getMember().getMember_id().equals(1L),
+                recommendRepository.countByPostAndIsActiveTrue(post).intValue());
+    }
+
+    private boolean isRecommend(Post post, Member member){
+        Optional<Recommend> optionalRecommend = recommendRepository.findByPostAndMember(post, member);
+        return optionalRecommend.isPresent() && optionalRecommend.get().isActive();
+    }
 }

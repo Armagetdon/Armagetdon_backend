@@ -18,7 +18,7 @@ public class Recommend extends BaseEntity {
 
     @Column(nullable = false)
     @ColumnDefault("true")
-    private boolean is_active;
+    private boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
@@ -32,5 +32,9 @@ public class Recommend extends BaseEntity {
     public Recommend(Post post, Member member){
         this.post = post;
         this.member = member;
+    }
+
+    public void changeState(){
+        this.isActive = !this.isActive;
     }
 }
