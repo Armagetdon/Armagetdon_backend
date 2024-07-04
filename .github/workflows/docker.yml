@@ -21,6 +21,7 @@ jobs:
     - name: make application.yml
       run: |
          cd ./src/main
+         mkdir resources
          cd ./resources
          
          touch ./application.yml
