@@ -65,5 +65,5 @@ jobs:
           sudo docker rm $(sudo docker ps -a -q --filter "name=armagetdon-dev") || true
           sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest || true
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest
-          sudo docker run -d —name armagetdon-dev -p 8080:8080 -e TZ=Asia/Seoul ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest
+          sudo docker run -d —-name armagetdon-dev -p 8080:8080 -e TZ=Asia/Seoul ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest
  
