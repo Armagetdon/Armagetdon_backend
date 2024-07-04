@@ -33,4 +33,8 @@ public class Recommend extends BaseEntity {
         this.post = post;
         this.member = member;
     }
+
+    public void changeState(){
+        this.isActive = !this.isActive;
+    }
 }

@@ -39,12 +39,19 @@ public class RecommendCommandServiceImpl implements RecommendCommandService {
         Optional<Member> newMember = memberRepository.findById(request.getMember_id());
         Member member = newMember.orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
 
-        Recommend newRecommend = Recommend.builder()
-                .post(post)
-                .member(member)
-                .build();
+        Optional<Recommend> recommend = recommendRepository.findByPostAndMember(post, member);
+        if (recommend.isEmpty()) {
+            Recommend newRecommend = Recommend.builder()
+                    .post(post)
+                    .member(member)
+                    .isActive(true)
+                    .build();
+            return recommendRepository.save(newRecommend);
+        }
+        recommend.get().changeState();
 
-        return recommendRepository.save(newRecommend);
+        return recommend.get();
+
     }
 }
 
