@@ -16,6 +16,10 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
+      # 소스 코드 체크아웃
+      - name: Checkout
+        uses: actions/checkout@v4
+
       # application.yml file 생성
       - name: make application.yml
         run: |
