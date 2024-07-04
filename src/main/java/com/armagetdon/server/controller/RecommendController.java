@@ -5,9 +5,10 @@ import com.armagetdon.server.domain.Recommend;
 import com.armagetdon.server.dto.RecommendRequestDTO;
 import com.armagetdon.server.dto.RecommendResponseDTO;
 import com.armagetdon.server.service.RecommendCommandService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor

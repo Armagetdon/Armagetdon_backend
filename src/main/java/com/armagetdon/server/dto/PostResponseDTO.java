@@ -18,5 +18,38 @@ public class PostResponseDTO {
         Long memberId;
         LocalDateTime createdAt;
     }
+    // 게시물 상세조회 API
+    @Getter
+    @Builder
+    public static class detailResultDTO {
+        Long postId;
+        String youtubeTitle;
+        String memberNickname;
+        boolean isRecommend;
+        int recommendCount;
+        String img_url;
+        String youtubeUrl;
+        boolean isMine;
+    }
 
+    // 게시물 전체조회 API
+    @Getter
+    @Builder
+    public static class listResultDTO {
+        Long postId;
+        String youtubeTitle;
+        String memberNickname;
+        String level;
+        boolean isRecommend;
+        int recommendCount;
+        String thumbnailUrl;
+    }
+
+    // 인기 게시물 조회 API
+    @Getter
+    @Builder
+    public static class popularResultDTO {
+        Long postId;
+        String thumbnailUrl;
+    }
 }

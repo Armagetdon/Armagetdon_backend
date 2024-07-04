@@ -8,13 +8,9 @@ import com.armagetdon.server.domain.Post;
 import com.armagetdon.server.dto.PostRequestDTO;
 import com.armagetdon.server.repository.PostImageRepository;
 import com.armagetdon.server.repository.PostRepository;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.IOException;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +21,7 @@ public class PostCommandServiceImpl implements PostCommandService {
 
     @Override
     @Transactional
-    public Post createPost(PostRequestDTO.createPostDTO request) {
+    public Post createPost(Long memberId, PostRequestDTO.createPostDTO request) {
         Post newPost = PostConverter.toPost(request);
         return postRepository.save(newPost);
     }

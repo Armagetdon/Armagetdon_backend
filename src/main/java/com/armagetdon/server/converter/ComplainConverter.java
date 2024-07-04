@@ -6,7 +6,6 @@ import com.armagetdon.server.domain.Complain;
 import com.armagetdon.server.domain.Post;
 import com.armagetdon.server.dto.ComplainRequestDTO;
 import com.armagetdon.server.dto.ComplainResponseDTO;
-import com.armagetdon.server.dto.PostRequestDTO;
 import com.armagetdon.server.repository.PostRepository;
 
 import java.util.Optional;

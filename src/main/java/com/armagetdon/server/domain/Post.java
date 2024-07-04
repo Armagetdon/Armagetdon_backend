@@ -3,6 +3,7 @@ package com.armagetdon.server.domain;
 import com.armagetdon.server.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 
@@ -18,19 +19,19 @@ public class Post extends BaseEntity {
     private Long post_id;
 
     @Column(nullable = false)
-    private String img_url;
+    private String imgUrl;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(500)")
-    private String youtube_url;
+    private String youtubeUrl;
 
     @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
-    private String thumbnail_url;
+    private String thumbnailUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn
     private Member member;
 
     //
@@ -41,8 +42,9 @@ public class Post extends BaseEntity {
     private List<Complain> complain;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_image_id")
-    private PostImage post_image_id;
+    @JoinColumn
+    private PostImage postImage;
 
-
+    @ColumnDefault("0")
+    private int postRecommendCount;
 }

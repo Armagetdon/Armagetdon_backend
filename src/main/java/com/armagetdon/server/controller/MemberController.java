@@ -2,7 +2,7 @@ package com.armagetdon.server.controller;
 
 import com.armagetdon.server.apiPayload.ApiResponse;
 import com.armagetdon.server.dto.MemberRequestDto;
-import com.armagetdon.server.dto.response.MemberRes;
+//import com.armagetdon.server.dto.response.*;
 import com.armagetdon.server.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private final MemberService memberService;
 
-    @PostMapping("")
-    public MemberRes joinMember() {
-        return memberService.join();
-    }
+//    @PostMapping("")
+//    public MemberRes joinMember() {
+//        return memberService.join();
+//    }
 
     @PostMapping("/tmp")
     public ApiResponse tmp(){
