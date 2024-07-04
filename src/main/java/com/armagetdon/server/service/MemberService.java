@@ -25,7 +25,29 @@ public class MemberService {
     public MemberResponseDto.MyPageDto getMyPage(Long memberId){
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus._NOT_EXIST_MEMBER));
-        return MemberResponseDto.MyPageDto.from(member.getNickname(), member.getReward(), member.getAltitude());
+
+        int altitude = member.getAltitude();
+        String level;
+        int leftAltitude;
+
+        if (altitude < 10){
+            level = "대류권";
+            leftAltitude = 10 - altitude;
+        } else if (altitude < 50){
+            level = "성층권";
+            leftAltitude = 50 - altitude;
+        } else if (altitude < 80){
+            level = "중간권";
+            leftAltitude = 80 - altitude;
+        } else if (altitude < 100){
+            level = "열권";
+            leftAltitude = 100 - altitude;
+        } else {
+            level = "광야";
+            leftAltitude = 0;
+        }
+
+        return MemberResponseDto.MyPageDto.from(member.getNickname(), member.getReward(), level, leftAltitude);
     }
 
     public MemberResponseDto.RewardDto getReward(Long memberId){

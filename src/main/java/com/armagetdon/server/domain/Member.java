@@ -43,5 +43,7 @@ public class Member extends BaseEntity {
 
     public Member(String nickname){
         this.nickname = nickname;
+        this.reward = 30L;
+        this.altitude = 0;
     }
 }
