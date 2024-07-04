@@ -32,6 +32,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// Youtube API v3
+	implementation 'com.google.apis:google-api-services-youtube:v3-rev222-1.25.0'
 }
 
 tasks.named('test') {
