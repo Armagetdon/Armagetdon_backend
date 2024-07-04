@@ -4,12 +4,15 @@ import com.armagetdon.server.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.List;
 
 @Entity
 @Getter
 @Builder
+@DynamicUpdate
+@DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Post extends BaseEntity {
@@ -17,6 +20,7 @@ public class Post extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long post_id;
+
 
     @Column(nullable = false, columnDefinition = "VARCHAR(500)")
     private String youtube_url;
@@ -41,7 +45,6 @@ public class Post extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_image_id")
     private PostImage post_image_id;
-
 
 
 }
