@@ -9,6 +9,8 @@ import com.armagetdon.server.dto.PostResponseDTO;
 import com.armagetdon.server.service.PostCommandService;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +21,12 @@ import java.security.GeneralSecurityException;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/posts")
+@Tag(name="Post", description = "게시물 관련 기능 API")
 public class PostController {
 
     private final PostCommandService postCommandService;
 
-    // 게시글 조회 API
+    @Operation(summary = "게시글 생성 API", description = "게시글을 생성하는 API")
     @PostMapping("/")
     public ApiResponse<PostResponseDTO.createResultDTO> create(@RequestBody @Valid PostRequestDTO.createPostDTO request){
         Post post = null;
@@ -37,7 +40,7 @@ public class PostController {
         return ApiResponse.onSuccess(PostConverter.toCreatePostDTO(post));
     }
 
-    // 게시글 삭제 API
+    @Operation(summary = "게시글 삭제 API", description = "게시글을 삭제하는 API")
     @DeleteMapping("/{id}")
     public ApiResponse<?> deletePost(@PathVariable(name="id") Long post_id){
         postCommandService.deletePost(post_id);
