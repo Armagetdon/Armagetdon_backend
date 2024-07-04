@@ -36,4 +36,14 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Complain> complain;
+
+
+    public void subReward(long reward){
+        this.reward -= reward;
+    }
+
+    @Builder
+    public Member(String nickname){
+        this.nickname = nickname;
+    }
 }
