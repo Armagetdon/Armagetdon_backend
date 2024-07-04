@@ -25,8 +25,9 @@ public enum ErrorStatus implements BaseErrorCode {
     /**
      * 404
      */
-    _NOT_EXIST_MEMBER(HttpStatus.NOT_FOUND, "404", "존재하지 않는 멤버입니다.")
+    _NOT_EXIST_MEMBER(HttpStatus.NOT_FOUND, "404", "존재하지 않는 멤버입니다."),
 
+    IMAGE_NOT_FOUND(HttpStatus.NOT_FOUND, "IMAGE400", "이미지가 없습니다."),
     ;
 
     private final HttpStatus httpStatus;
