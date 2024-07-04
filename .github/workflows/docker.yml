@@ -21,7 +21,7 @@ jobs:
         run: |
            cd ./src/main
            mkdir resources
-           cd resources
+           cd ./resources
            
            touch ./application.yml
            echo "${{ secrets.YML }}" >> ./application.yml
