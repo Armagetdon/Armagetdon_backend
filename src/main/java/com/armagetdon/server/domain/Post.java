@@ -3,6 +3,7 @@ package com.armagetdon.server.domain;
 import com.armagetdon.server.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 
@@ -44,5 +45,7 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "post_image_id")
     private PostImage post_image_id;
 
+    @ColumnDefault("0")
+    private int post_recommend_count;
 
 }
