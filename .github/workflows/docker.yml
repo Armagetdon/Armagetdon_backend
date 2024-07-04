@@ -65,5 +65,5 @@ jobs:
             sudo docker stop $(docker ps -a -q --filter "name=armagetdon-app") || true
             sudo docker rm $(docker ps -a -q --filter "name=armagetdon-app") || true
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
-            docker run -d --name armagetdon-app -p 8080:8080 -e TZ=Asia/Seoul ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
+            sudo docker run -d --name armagetdon-app -p 8080:8080 -e TZ=Asia/Seoul ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
 
