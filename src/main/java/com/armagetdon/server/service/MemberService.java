@@ -15,7 +15,11 @@ public class MemberService {
     private final NicknameService nicknameService;
 
     public MemberRes join() {
-        String nickname = nicknameService.generateNickname();
+        String nickname;
+        do {
+            nickname = nicknameService.generateNickname();
+        } while (memberRepository.existsByNickname(nickname));
+
         Member member = Member.builder()
                 .nickname(nickname)
                 .altitude(0)
