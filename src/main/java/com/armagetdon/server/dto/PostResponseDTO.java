@@ -51,4 +51,11 @@ public class PostResponseDTO {
         String thumbnailUrl;
     }
 
+    // 인기 게시물 조회 API
+    @Getter
+    @Builder
+    public static class popularResultDTO {
+        Long postId;
+        String thumbnailUrl;
+    }
 }
