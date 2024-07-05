@@ -19,6 +19,8 @@ import com.armagetdon.server.repository.PostRepository;
 
 import com.armagetdon.server.repository.RecommendRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,6 +94,30 @@ public class PostCommandServiceImpl implements PostCommandService {
                 isRecommend(post, post.getMember()),
                 post.getMember().getMember_id().equals(1L),
                 recommendRepository.countByPostAndIsActiveTrue(post).intValue());
+    }
+
+    @Override
+    public List<PostResponseDTO.popularResultDTO> getPopularList() {
+        Pageable topFive = PageRequest.of(0, 5);
+        return postRepository.findTop5PostsByRecommendCount(topFive).stream()
+                .map(post -> PostResponseDTO.popularResultDTO.builder()
+                        .postId(post.getPost_id())
+                        .thumbnailUrl(post.getThumbnail_url())
+                        .build())
+                .toList();
+    }
+
+    @Override
+    public List<PostResponseDTO.listResultDTO> getMineList(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new GeneralException(ErrorStatus.MEMBER_NOT_FOUND));
+        List<Post> postList = postRepository.findAllByMember(member);
+        return postList.stream()
+                .map(post -> PostConverter.toListPostDTO(
+                        post,
+                        isRecommend(post, post.getMember()),
+                        Level.getLevelByAltitude(post.getMember().getAltitude()).getName(),
+                        recommendRepository.countByPostAndIsActiveTrue(post).intValue()))
+                .toList();
     }
 
     private boolean isRecommend(Post post, Member member){

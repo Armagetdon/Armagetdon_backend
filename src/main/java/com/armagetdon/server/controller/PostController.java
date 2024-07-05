@@ -62,4 +62,18 @@ public class PostController {
     public ApiResponse<PostResponseDTO.detailResultDTO> inquiryDetail(@PathVariable(name = "postId") Long postId) {
         return ApiResponse.onSuccess(postCommandService.inquiryDetail(postId));
     }
+
+    // Top 5 게시글 조회 API
+    @Operation(summary = "Top 5 게시글 조회 API", description = "Top 5 게시글을 조회하는 API")
+    @GetMapping("/popular")
+    public ApiResponse<List<PostResponseDTO.popularResultDTO>> getPopularList() {
+        return ApiResponse.onSuccess(postCommandService.getPopularList());
+    }
+
+    // 내 게시글 조회 API
+    @Operation(summary = "내 게시글 조회 API", description = "내 게시글을 조회하는 API")
+    @GetMapping("/mine/{memberId}")
+    public ApiResponse<List<PostResponseDTO.listResultDTO>> getMineList(@PathVariable Long memberId) {
+        return ApiResponse.onSuccess(postCommandService.getMineList(memberId));
+    }
 }
